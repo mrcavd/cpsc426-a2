@@ -65,17 +65,30 @@ class Motion {
 	while (this.currTime > this.keyFrameArray[i].time)      // find the right pair of keyframes
 	    i++;
 	var avars = [];
+	// number of keyframes
 	var nKF = this.keyFrameArray.length;
+
 	for (var n=0; n<this.keyFrameArray[i-1].avars.length; n++) {  
               // compute point indices
+		// i1-4 indicate the 4 control points
+		// if it's the first segment, the first and second control points
+		// are limited to 0
+		// if it's the last segment, the control points are limited to the
+		// last keyframe
 	    var i1 = i-2;  if (i1<0) i1=0;          
 	    var i2 = i-1;
 	    var i3 = i;
-	    var i4 = i+1;  if (i4>nKF-1) i4=nKF-1;  
+	    var i4 = i+1;  if (i4>nKF-1) i4=nKF-1;
+
+	    // assigning 4 keyframes
 	    var kf1 = this.keyFrameArray[i1];
 	    var kf2 = this.keyFrameArray[i2];
 	    var kf3 = this.keyFrameArray[i3];
 	    var kf4 = this.keyFrameArray[i4];
+
+	    // for each animation variable in 4 consecutive keyframes
+		// compute y2p which is P'(2) = (1/2)(P3-P1)(T3-T2)/(T3-T1)
+		// WHAT IS (T3-T2)/(T3-T1)
 	    var y1 = kf1.avars[n],  t1 = kf1.time;
 	    var y2 = kf2.avars[n],  t2 = kf2.time;
 	    var y3 = kf3.avars[n],  t3 = kf3.time;
