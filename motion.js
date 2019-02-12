@@ -87,19 +87,29 @@ class Motion {
 	    var kf4 = this.keyFrameArray[i4];
 
 	    // for each animation variable in 4 consecutive keyframes
-		// compute y2p which is P'(2) = (1/2)(P3-P1)(T3-T2)/(T3-T1)
-		// WHAT IS (T3-T2)/(T3-T1)
+		// compute y2p & y3p which is P'(i) = (Ti+1-Ti)(Pi+1-Pi-1)/(Ti+1-Ti-1)
+		// for non-uniformly spaced points
+		// (Pi+1-Pi-1)/(Ti+1-Ti-1) gets the v_i,
+		// and (Ti+1-Ti) is the time v_i should travel that agree with
+		// the rest of the catmull-rom curve
+		// ** Spent hours looking at the wrong code with 0.5 **
+		// var y2p = (t3-t2)*0.5*(y3-y1)/(t3-t1); is wrong
 	    var y1 = kf1.avars[n],  t1 = kf1.time;
 	    var y2 = kf2.avars[n],  t2 = kf2.time;
 	    var y3 = kf3.avars[n],  t3 = kf3.time;
 	    var y4 = kf4.avars[n],  t4 = kf4.time;
-	    var y2p = (t3-t2)*0.5*(y3-y1)/(t3-t1);
-	    var y3p = (t3-t2)*0.5*(y4-y2)/(t4-t2);
+	    var y2p = (t3-t2)*(y3-y1)/(t3-t1);
+	    var y3p = (t3-t2)*(y4-y2)/(t4-t2);
+
+	    // compute T*A
+		// A = Mh*G where Mh is the basis matrix of hermit curve
 	    var t = (this.currTime - t2)/(t3-t2);
 	    var T = new THREE.Vector4( t*t*t, t*t, t, 1 );
 	    var G = new THREE.Vector4(y2,y3,y2p,y3p); 
 	    var A = G.applyMatrix4(Mh);
 	    var val = T.dot(A);
+
+	    // populate animation variables
 	    avars.push(val);
 	}
 	return avars;
