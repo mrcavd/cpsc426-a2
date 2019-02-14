@@ -63,7 +63,7 @@ negzTexture.minFilter = minFilter;
 // Skybox add()
 /////////////////////////////////////
 function initSkybox() {
-    var size = 100;
+    var size = 80;
     wallGeometry = new THREE.PlaneBufferGeometry(2 * size, 2 * size);
 
     posxMaterial = new THREE.MeshBasicMaterial({map: posxTexture, side: THREE.DoubleSide});
@@ -125,8 +125,8 @@ function initLuxoObjects() {
 
     // cylinder
     // parameters:  radiusAtTop, radiusAtBottom, height, radialSegments, heightSegments
-    cylinderGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20, 4 );
-    cylinder = new THREE.Mesh( cylinderGeometry, diffuseMaterial);
+    cylinderGeometry = new THREE.CylinderGeometry( 2, 2, 1, 32, 4 );
+    cylinder = new THREE.Mesh( cylinderGeometry, diffuseMaterial2);
     cylinder.position.set(0, 0.5, 2);
     scene.add( cylinder );
 

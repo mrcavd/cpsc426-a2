@@ -5,13 +5,51 @@
 ////////////////////////////////////////////////////////////////////////
 
 function initPencilMotions() {
+    var a0 = 0;
+    var a1 = Math.PI/6;
+    var a2 = Math.PI/4;
+    var a3 = Math.PI/2;
+    var i0 = Math.sin(a0)*0.42;
+    var j0 = Math.cos(a0)*0.42;
+    var i1 = Math.sin(a1)*0.42;
+    var j1 = Math.cos(a1)*0.42;
+    var i2 = Math.sin(a2)*0.42;
+    var j2 = Math.cos(a2)*0.42;
+    var i3 = Math.sin(a3)*0.42;
+    var j3 = Math.cos(a3)*0.42;
+      // keyframes for pencil:    name, dt, [bz0x, bz0y, bz0z, bz1x, bz1y, bz1z, bz2x, bz2y, bz2z, bz3x, bz3y, bz3z]
+    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0, [0.5-i0,  0,  0.4+j0,
+                                                                        0.5-i1,  0,  0.4+j1,
+                                                                        0.5-i2, 0, 0.4+j2,
+                                                                        0.5-i3, 0, 0.4+j3]));
+    pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0,
+        [0.5-i0,  0,  0.4+j0,
+        0.5-i1,  0,  0.4+j1,
+        0.5-i2, 0, 0.4+j2,
+        0.5-i3, 0, 0.4+j3]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0, [0.1,  0,  0.0,
+    //                                                                     0.3,  0,  -0.2,
+    //                                                                     0.5,  0, -0.2,
+    //                                                                     0.7, 0, -0.1]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyC', 1.5, [0.2,  0,  -0.1,
+    //                                                                     0.4,  0,  -0.2,
+    //                                                                     0.7, 0, -0.2,
+    //                                                                     0.8, 0, -0.1]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyD', 2.0,
+    //     [0.2,  0,  -0.1,
+    //     0.4,  0,  -0.2,
+    //     0.7, 0, -0.2,
+    //     0.8, 0, -0.1]));
 
-      // keyframes for pencil:    name, dt, [x, y]
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0, [-5, -2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0, [5, 2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [0, 2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyB', 2.0, [-5, 2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [0, -2]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [-2, 9,  0.5,
+    //                                                                     -3, -5, 1,
+    //                                                                     -6, -3, 2]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyB', 2.0, [4,  6,  0.5,
+    //                                                                     3,  5, 1,
+    //                                                                     -9, 0, 1]));
+    // pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [2,  2,  0.5,
+    //                                                                     -3, -5, 1,
+    //                                                                     -6, -3, 2]));
 
 }
 
@@ -79,12 +117,16 @@ function initPencilObject() {
     geom.uvsNeedUpdate = true;
 
     // change pencil position and scale pencil here
+    var axesHelper = new THREE.AxesHelper( 2 );
     pencil = new THREE.Mesh( geom, pencilMaterial);
-    pencil.position.set(-10,5,0);
-    pencil.rotation.z = -Math.PI/2;
+    pencil.add(axesHelper);
+    pencil.position.set(-2.5,0.5,0);
     pencil.scale.x = 5.0;
     pencil.scale.y = 5.0;
     pencil.scale.z = 5.0;
+    //pencil.rotation.x = -Math.PI/2;
+    //pencil.rotation.y = -Math.PI/2;
+
     pencil.castShadow = true;    pencil.receiveShadow = false;
     scene.add(pencil);
 
@@ -122,7 +164,7 @@ function initPencilObject() {
 	linePositions[ i++ ] = 0.5;
 	linePositions[ i++ ] = 0;
     }
-    lineObj.geometry.setDrawRange( 0, bezNpts );   
+    lineObj.geometry.setDrawRange( 0, bezNpts );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -130,22 +172,57 @@ function initPencilObject() {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 function updatePencil(avars) {
-    pencil.position.set(-10+avars[0],5,0);
+    var deg2rad = Math.PI/180;
+    //var theta0 = avars[6]*deg2rad;
+    //pencil.position.set(avars[3], avars[4], avars[5]);
 
       // update a control point    using avars[0], avars[1]
       // NOTE:  control points live and move in the local frame of the pencil.  
       //        the pencil has unit size, and is horizontal at y=0.5, with the tip to the right
 
-    var yNew = 0.5 + 0.1*avars[0];
-    var xNew = 0.0 - 0.1*avars[1];
-    bezCpList[0].x = xNew;           // change x of the first control point
-    bezCpList[0].y = yNew;           // change y of the first control point
-    // bezCpList[1].x = xNew;
-    // bezCpList[1].y = yNew;
-    bezCps = bezCpSphereList[0];     // update position of the corresponding sphere
-    // bezCps2 = bezCpSphereList[1];
-    bezCps.position.set(xNew, yNew, 0);
-    // bezCps2.position.set(xNew, yNew, 0);
+
+    var y0 = avars[1];
+    var x0 = avars[0];
+    var z0 = avars[2];
+
+    var x1 = avars[3];
+    var y1 = avars[4];
+    var z1 = avars[5];
+
+    var x2 = avars[6];
+    var y2 = avars[7];
+    var z2 = avars[8];
+
+    var x3 = avars[9];
+    var y3 = avars[10];
+    var z3 = avars[11];
+
+    bezCpList[0].x = x0;           // change x of the first control point
+    bezCpList[0].y = y0;           // change y of the first control point
+    bezCpList[0].z = z0;
+
+    bezCpList[1].x = x1;
+    bezCpList[1].y = y1;
+    bezCpList[1].z = z1;
+
+    bezCpList[2].x = x2;
+    bezCpList[2].y = y2;
+    bezCpList[2].z = z2;
+
+    bezCpList[3].x = x3;
+    bezCpList[3].y = y3;
+    bezCpList[3].z = z3;
+    // bezCpList[3].z = zNew;
+    bezCps0 = bezCpSphereList[0];     // update position of the corresponding sphere
+    bezCps1 = bezCpSphereList[1];
+    bezCps2 = bezCpSphereList[2];
+    bezCps3 = bezCpSphereList[3];
+    bezCps0.position.set(x0, y0, z0);
+    bezCps1.position.set(x1, y1, z1);
+    bezCps2.position.set(x2, y2, z2);
+    bezCps3.position.set(x3, y3, z3);
+    //pencil.rotation.x = theta0;
+    //bezCps1.position.set(bezCpList[1].x, bezCpList[1].y, bezCpList[1].z);
 
     
 

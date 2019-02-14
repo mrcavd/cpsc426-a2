@@ -40,7 +40,7 @@ function initSpline() {
 
     ////////////   avar  splines  ////////////
 
-    var MAX_POINTS = 100;
+    var MAX_POINTS = 10000;
     var drawCount = 0; 
     var nAvars = 6;     //  Luxo has 6 animation variables, i.e., degrees of freedom
     var materials = [
