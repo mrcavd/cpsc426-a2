@@ -7,14 +7,18 @@
 function initPencilMotions() {
     var a0 = 0;
     var a1 = Math.PI/6;
-    var a2 = Math.PI/4;
+    var a2 = Math.PI/3;
     var a3 = Math.PI/2;
+
     var i0 = Math.sin(a0)*0.42;
     var j0 = Math.cos(a0)*0.42;
-    var i1 = Math.sin(a1)*0.42;
-    var j1 = Math.cos(a1)*0.42;
-    var i2 = Math.sin(a2)*0.42;
-    var j2 = Math.cos(a2)*0.42;
+
+    var i1 = Math.sin(a1)*0.47;
+    var j1 = Math.cos(a1)*0.47;
+
+    var i2 = Math.sin(a2)*0.47;
+    var j2 = Math.cos(a2)*0.47;
+
     var i3 = Math.sin(a3)*0.42;
     var j3 = Math.cos(a3)*0.42;
       // keyframes for pencil:    name, dt, [bz0x, bz0y, bz0z, bz1x, bz1y, bz1z, bz2x, bz2y, bz2z, bz3x, bz3y, bz3z]
