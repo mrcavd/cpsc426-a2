@@ -16,6 +16,7 @@ function initLuxoMotions() {
 
       // keyframes for Luxo:    name, dt, [x, y, theta1, theta2, theta3, theta4]
     luxoMotion.addKeyFrame(new Keyframe('init',         0.0, [-6, 0,   0, -45, 25, 95]));
+    luxoMotion.addKeyFrame(new Keyframe('init',         1.0, [-6, 0,   0, -45, 25, 95]));
     luxoMotion.addKeyFrame(new Keyframe('setup',         0.3, [-5.1, 0,   0, -10, 45, 60]));
     luxoMotion.addKeyFrame(new Keyframe('ready',         0.5, [-5  , 0.2,   0, -20, 25, 70]));
     luxoMotion.addKeyFrame(new Keyframe('jump_0',         1.0, [-3, 3,   -40, -30, 90, 90]));
@@ -30,6 +31,7 @@ function initLuxoMotions() {
     luxoMotion.addKeyFrame(new Keyframe('landed',         0.5, [-6, 0,   360, -130, 320, 85]));
     luxoMotion.addKeyFrame(new Keyframe('reset_0',         1.2, [-6, 0,   360, -40, 25, 95]));
 
+    // Discarded Frame
     // luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [10, 8,   100, -85, 125, 20]));
     // luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [1, 8,   100, -85, 125, 20]));
 
@@ -40,6 +42,14 @@ function initLuxoMotions() {
 /////////////////////////////////////	
 
 function initLuxo() {
+
+    var axesHelper = new THREE.AxesHelper( 5 );
+
+    luxolight = new THREE.SpotLight(0xffd700, 6.0, 0.0, Math.PI/4);
+    luxolight.castShadow = true;
+    luxolight.add(axesHelper);
+    scene.add(luxolight);
+
     boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );    // width, height, depth
     coneGeometry = new THREE.ConeGeometry( 1,2,32,5,true );
     sphereGeometry = new THREE.SphereGeometry(0.4, 32, 32);
@@ -51,6 +61,13 @@ function initLuxo() {
     luxo4 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo4 );
     luxo5 = new THREE.Mesh( coneGeometry, coneMaterial);
     luxo6 = new THREE.Mesh( sphereGeometry, bulbMaterial);
+
+
+    //luxo6.add( axesHelper );
+
+    bulbTarget = new THREE.Mesh( sphereGeometry, diffuseMaterial2);
+    scene.add(bulbTarget);
+
     scene.add(luxo5);
     scene.add(luxo6);
     luxoj1 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj1);
@@ -63,6 +80,8 @@ function initLuxo() {
     luxo4.castShadow = true;    luxo4.receiveShadow = false;
     luxo5.castShadow = true;    luxo5.receiveShadow = false;
     luxo6.castShadow = false;   luxo6.receiveShadow = false;
+    bulbTarget.castShadow = false;
+
 
     luxo1.matrixAutoUpdate = false;  
     luxo2.matrixAutoUpdate = false;  
@@ -73,7 +92,9 @@ function initLuxo() {
     luxoj1.matrixAutoUpdate = false;  
     luxoj2.matrixAutoUpdate = false;  
     luxoj3.matrixAutoUpdate = false;
+    bulbTarget.matrixAutoUpdate = false;
 
+    //testBulb.matrixAutoUpdate = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +115,7 @@ function updateLuxo(avars) {
     var frame2 = new THREE.Matrix4();
     var frame3 = new THREE.Matrix4();
     var frame4 = new THREE.Matrix4();
+    var position = new THREE.Vector3();
 
       ////////////// luxo1
     luxo1.matrix.identity(); 
@@ -144,7 +166,20 @@ function updateLuxo(avars) {
     luxo5.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 1.2*-len4, 0));
 
     luxo6.matrix.copy(frame4);
-    luxo6.matrix.multiply(new THREE.Matrix4().makeTranslation(0, -1.2*len4, 0));
+    luxo6.matrix.multiply(new THREE.Matrix4().makeRotationZ(-0.5*Math.PI));
+    luxo6.matrix.multiply(new THREE.Matrix4().makeTranslation(1.1*len4, 0, 0));
+    bulbTarget.matrix.copy(luxo6.matrix);
+    bulbTarget.matrix.multiply(new THREE.Matrix4().makeTranslation(3.2*len4, 0, 0));
+    bulbTarget.matrix.multiply(new THREE.Matrix4().makeScale(0.1, 0.1, 0.1));
+
+    position.setFromMatrixPosition(luxo6.matrixWorld);
+    luxolight.position.set(position.x, position.y,  position.z);
+    luxolight.target = bulbTarget;
+    //testBulb.matrix.copy(luxo6.matrix);
+    //luxolight.target = position;
+    //console.log(position.x + ', ' + position.y + ', ' + position.z);
+
+    //console.log(frame4);
 
     luxo1.updateMatrixWorld();
     luxo2.updateMatrixWorld();
@@ -152,5 +187,9 @@ function updateLuxo(avars) {
     luxo4.updateMatrixWorld();
     luxo5.updateMatrixWorld();
     luxo6.updateMatrixWorld();
+    luxolight.updateMatrixWorld();
+    bulbTarget.updateMatrixWorld();
+
+    //testBulb.updateMatrixWorld();
 }
 

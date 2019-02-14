@@ -24,9 +24,9 @@ console.log("scene.js")
 
 function initLights() {
     light = new THREE.PointLight(0xffffff);
-    light.position.set(5,20,9);
+    light.position.set(5,6,4);
     light.castShadow = true; 
-    scene.add(light);
+    //scene.add(light);
     ambientLight = new THREE.AmbientLight(0xf6fabc, 0.45);
     scene.add(ambientLight);
 }
@@ -112,7 +112,7 @@ function initLuxoObjects() {
     sphere = new THREE.Mesh(sphereGeometry, yellowMaterial);
     sphere.position.set(-5,8,2);
     sphere.position.set(light.position.x, light.position.y, light.position.z);
-    scene.add(sphere);
+    //scene.add(sphere);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
