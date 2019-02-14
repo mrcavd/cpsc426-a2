@@ -24,7 +24,7 @@ function initLuxoMotions() {
     luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [0, 1.0,   0, -100, 200,90]));
     luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [0, 1.0,   0, -150, 280,120]));
     luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [0.5, 1.1,   8, -150, 280,120]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-3, 8.0,   180, -130, 300, 150]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-3, 8.0,   180, -130, 300, 150]));
     luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-7, 1.0,   350, -130, 320, 170]));
     luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [-7, 0,   360, -130, 320, 200]));
     luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-7, 0,   360, -130, 320, 170]));
