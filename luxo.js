@@ -84,7 +84,7 @@ function updateLuxo(avars) {
 
       ////////////// luxo1
     luxo1.matrix.identity(); 
-    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(xPosition,yPosition,10));   
+    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(xPosition,yPosition,2));   
     luxo1.matrix.multiply(new THREE.Matrix4().makeRotationZ(theta1));    
       // Frame 1 has been established
     frame1.copy(luxo1.matrix);

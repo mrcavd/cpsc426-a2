@@ -46,18 +46,18 @@ function initLuxoObjects() {
       //        (optional) segments along x, segments along y, segments along z
     var mccGeometry = new THREE.BoxGeometry( 1.5, 1.5, 1.5, 1, 1, 1 );
     mcc = new THREE.Mesh( mccGeometry, cubeMaterialArray );
-    mcc.position.set(-5,0.75,2);
+    mcc.position.set(10,0.75,2);
     scene.add( mcc );	
 
     // cylinder
     // parameters:  radiusAtTop, radiusAtBottom, height, radialSegments, heightSegments
     cylinderGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20, 4 );
     cylinder = new THREE.Mesh( cylinderGeometry, diffuseMaterial);
-    cylinder.position.set(0, 0.5, 10);
+    cylinder.position.set(0, 0.5, 2);
     scene.add( cylinder );
 
       // textured floor
-    floorTexture = new THREE.TextureLoader().load('images/floor.jpg');
+    floorTexture = new THREE.TextureLoader().load('images/wood.jpg');
     floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
     floorTexture.repeat.set(2, 2);
     floorMaterial = new THREE.MeshLambertMaterial( {color: 0xcfcfcf, 
@@ -71,18 +71,18 @@ function initLuxoObjects() {
     floor.receiveShadow = true;
 
     // textured ceiling
-    ceilingTexture = new THREE.TextureLoader().load('images/floor.jpg');
-    ceilingTexture.wrapS = ceilingTexture.wrapT = THREE.RepeatWrapping;
-    ceilingTexture.repeat.set(2, 2);
-    ceilingMaterial = new THREE.MeshLambertMaterial( {color: 0xcfcfcf, 
-        map: ceilingTexture, side: THREE.DoubleSide });
-    ceilingGeometry =new THREE.PlaneBufferGeometry(30,30);
-    ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
-    ceiling.position.y = 15.0;
-    ceiling.rotation.x = Math.PI / 2;
-    scene.add(ceiling);
-    ceiling.castShadow = false;
-    ceiling.receiveShadow = true;
+    // ceilingTexture = new THREE.TextureLoader().load('images/floor.jpg');
+    // ceilingTexture.wrapS = ceilingTexture.wrapT = THREE.RepeatWrapping;
+    // ceilingTexture.repeat.set(2, 2);
+    // ceilingMaterial = new THREE.MeshLambertMaterial( {color: 0xcfcfcf, 
+    //     map: ceilingTexture, side: THREE.DoubleSide });
+    // ceilingGeometry =new THREE.PlaneBufferGeometry(30,30);
+    // ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+    // ceiling.position.y = 15.0;
+    // ceiling.rotation.x = Math.PI / 2;
+    // scene.add(ceiling);
+    // ceiling.castShadow = false;
+    // ceiling.receiveShadow = true;
 
     // textured Lwall
     // LWallTexture = new THREE.TextureLoader().load('images/floor.jpg');
