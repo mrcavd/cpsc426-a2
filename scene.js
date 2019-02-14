@@ -99,7 +99,8 @@ function initLuxoObjects() {
     // LWall.castShadow = false;
     // LWall.receiveShadow = true;
 
-    coneGeometry = new THREE.CylinderGeometry( 0.0, 0.30, 0.80, 20, 4 );
+    // cone:   parameters --  radiusTop, radiusBot, height, radialSegments, heightSegments
+    coneGeometry = new THREE.CylinderGeometry( 0.3, 1.6, 3.0, 20, 4 );
     cone = new THREE.Mesh( coneGeometry, diffuseMaterial);
     cone.position.set(4, 0, 0);
     scene.add( cone);

@@ -39,12 +39,15 @@ function initLuxoMotions() {
 
 function initLuxo() {
     boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );    // width, height, depth
+    coneGeometry = new THREE.CylinderGeometry( 0.3, 1.0, 1.6, 20, 4 );
     jointGeometry = new THREE.CylinderGeometry( 0.30, 0.30, 1.1, 20, 4 );
 
     luxo1 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo1 );
     luxo2 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo2 );
     luxo3 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo3 );
     luxo4 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo4 );
+    luxo5 = new THREE.Mesh( coneGeometry, diffuseMaterial2);
+    scene.add(luxo5);
     luxoj1 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj1);
     luxoj2 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj2);
     luxoj3 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj3);
@@ -53,11 +56,13 @@ function initLuxo() {
     luxo2.castShadow = true;    luxo2.receiveShadow = false;
     luxo3.castShadow = true;    luxo3.receiveShadow = false;
     luxo4.castShadow = true;    luxo4.receiveShadow = false;
+    luxo5.castShadow = true;    luxo5.receiveShadow = false;
 
     luxo1.matrixAutoUpdate = false;  
     luxo2.matrixAutoUpdate = false;  
     luxo3.matrixAutoUpdate = false;  
-    luxo4.matrixAutoUpdate = false;  
+    luxo4.matrixAutoUpdate = false;
+    luxo5.matrixAutoUpdate = false;
     luxoj1.matrixAutoUpdate = false;  
     luxoj2.matrixAutoUpdate = false;  
     luxoj3.matrixAutoUpdate = false;  
@@ -124,12 +129,16 @@ function updateLuxo(avars) {
     luxoj3.matrix.copy(frame4);
     luxoj3.matrix.multiply(new THREE.Matrix4().makeRotationX(0.5*Math.PI));
     luxo4.matrix.copy(frame4);
-    luxo4.matrix.multiply(new THREE.Matrix4().makeTranslation(0,-0.5*len4,0));   
-    luxo4.matrix.multiply(new THREE.Matrix4().makeScale(width,len4,depth));    
+    luxo4.matrix.multiply(new THREE.Matrix4().makeTranslation(0,-0.5*len4,0));
+    luxo4.matrix.multiply(new THREE.Matrix4().makeScale(0.2*width,len4,0.2*depth));
+
+    luxo5.matrix.copy(frame4);
+    luxo5.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 1.2*-len4, 0));
 
     luxo1.updateMatrixWorld();
     luxo2.updateMatrixWorld();
     luxo3.updateMatrixWorld();
     luxo4.updateMatrixWorld();
+    luxo5.updateMatrixWorld();
 }
 
