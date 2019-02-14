@@ -14,13 +14,23 @@ function initLuxoMotions() {
 //    myboxMotion.currTime = 2.9;
 //    console.log('kf',myboxMotion.currTime,'=',myboxMotion.getAvars());    // interpolate for t=2.9
 
-      // keyframes for Luxo:    name, dt, [x, y, theta1, theta2, theta3]
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.0, [0, 0,   0, -25, 25, 0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [0, 0,   0, -25, 25, 0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [3, 8,   100, -85, 125, 20]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [5, 8,   200, -85, 100, 40]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [7, 0,   360, -25, 25, 0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [7, 0,   360, -25, 25, 0]));
+      // keyframes for Luxo:    name, dt, [x, y, theta1, theta2, theta3, theta4]
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.0, [-5, 0,   0, -45, 25, 0]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [-5.5, 0,   0, -10, 45, 40]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-5  , 0,   0, -20, 25, 0]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-3, 3,   -40, -30, 90,90]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [0, 1.3,   5, -20, 45,0]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.4, [0, 1.0,   0, -20, 45,30]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [0, 1.0,   0, -100, 200,90]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [0, 1.0,   0, -150, 280,120]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [0.5, 1.1,   8, -150, 280,120]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-3, 8.0,   180, -130, 300, 150]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-7, 1.0,   350, -130, 320, 170]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [-7, 0,   360, -130, 320, 200]));
+    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-7, 0,   360, -130, 320, 170]));
+    // luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [10, 8,   100, -85, 125, 20]));
+    // luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [1, 8,   100, -85, 125, 20]));
+
 }
 
 /////////////////////////////////////	
@@ -74,7 +84,7 @@ function updateLuxo(avars) {
 
       ////////////// luxo1
     luxo1.matrix.identity(); 
-    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(xPosition,yPosition,0));   
+    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(xPosition,yPosition,10));   
     luxo1.matrix.multiply(new THREE.Matrix4().makeRotationZ(theta1));    
       // Frame 1 has been established
     frame1.copy(luxo1.matrix);

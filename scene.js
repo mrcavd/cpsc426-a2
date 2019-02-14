@@ -53,7 +53,7 @@ function initLuxoObjects() {
     // parameters:  radiusAtTop, radiusAtBottom, height, radialSegments, heightSegments
     cylinderGeometry = new THREE.CylinderGeometry( 2, 2, 1, 20, 4 );
     cylinder = new THREE.Mesh( cylinderGeometry, diffuseMaterial);
-    cylinder.position.set(-7, 0.5, -3);
+    cylinder.position.set(0, 0.5, 10);
     scene.add( cylinder );
 
       // textured floor
@@ -69,6 +69,35 @@ function initLuxoObjects() {
     scene.add(floor);
     floor.castShadow = false;
     floor.receiveShadow = true;
+
+    // textured ceiling
+    ceilingTexture = new THREE.TextureLoader().load('images/floor.jpg');
+    ceilingTexture.wrapS = ceilingTexture.wrapT = THREE.RepeatWrapping;
+    ceilingTexture.repeat.set(2, 2);
+    ceilingMaterial = new THREE.MeshLambertMaterial( {color: 0xcfcfcf, 
+        map: ceilingTexture, side: THREE.DoubleSide });
+    ceilingGeometry =new THREE.PlaneBufferGeometry(30,30);
+    ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+    ceiling.position.y = 15.0;
+    ceiling.rotation.x = Math.PI / 2;
+    scene.add(ceiling);
+    ceiling.castShadow = false;
+    ceiling.receiveShadow = true;
+
+    // textured Lwall
+    // LWallTexture = new THREE.TextureLoader().load('images/floor.jpg');
+    // LWallTexture.wrapS = LWallTexture.wrapT = THREE.RepeatWrapping;
+    // LWallTexture.repeat.set(2, 2);
+    // LWallMaterial = new THREE.MeshLambertMaterial( {color: 0xcfcfcf, 
+    //     map: LWallTexture, side: THREE.DoubleSide });
+    // LWallGeometry =new THREE.PlaneBufferGeometry(30,30);
+    // LWall = new THREE.Mesh(LWallGeometry, LWallMaterial);
+    // LWall.position.y = 15.0;
+    // LWall.rotation.x = 0;
+    // LWall.position.z = -15.0;
+    // scene.add(LWall);
+    // LWall.castShadow = false;
+    // LWall.receiveShadow = true;
 
     // sphere, located at light position
     sphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);    // radius, segments, segments

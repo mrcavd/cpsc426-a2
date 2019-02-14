@@ -7,11 +7,12 @@
 function initPencilMotions() {
 
       // keyframes for pencil:    name, dt, [x, y]
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0, [0, -2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyB', 2.0, [5, 2]));
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [0, -2]));
+    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0, [-5, -2]));
+    pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0, [5, 2]));
+    pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [0, 2]));
     pencilMotion.addKeyFrame(new Keyframe('keyB', 2.0, [-5, 2]));
     pencilMotion.addKeyFrame(new Keyframe('keyA', 2.0, [0, -2]));
+
 }
 
 /////////////////////////////////////	
@@ -40,6 +41,7 @@ function initPencilObject() {
 	geom.vertices.push(new THREE.Vector3( pencilCoords[n], pencilCoords[n+1], 0));   // xyz coords
 	pencil_uvList.push(new THREE.Vector2( pencilCoords[n], pencilCoords[n+1] ));    // texture coords
     }
+    // composing a pencil 
     geom.faces.push( new THREE.Face3( 0, 1, 10 ) );
     geom.faces.push( new THREE.Face3( 0, 10, 9 ) );
     geom.faces.push( new THREE.Face3( 1, 2, 11 ) );
@@ -76,6 +78,7 @@ function initPencilObject() {
     }
     geom.uvsNeedUpdate = true;
 
+    // change pencil position and scale pencil here
     pencil = new THREE.Mesh( geom, pencilMaterial);
     pencil.position.set(-10,5,0);
     pencil.rotation.z = -Math.PI/2;
@@ -88,6 +91,7 @@ function initPencilObject() {
       // Bezier curve
 
       // Bezier control points
+      // blue points            
     bezCpGeometry = new THREE.SphereGeometry(0.015, 16, 16);    // control point sphere: rad, nseg, nseg
     bezCpSphereList = [];
     bezCpList = [];
@@ -102,6 +106,7 @@ function initPencilObject() {
     }
 
       // Bezier curve
+      // blue curve in the pencil 
     bezNpts = 10;
     lineMaterial = new THREE.LineBasicMaterial( { color: 0x0000ff, linewidth: 2 });
     lineGeometry = new THREE.BufferGeometry();
@@ -133,10 +138,16 @@ function updatePencil(avars) {
 
     var yNew = 0.5 + 0.1*avars[0];
     var xNew = 0.0 - 0.1*avars[1];
-    bezCpList[0].x = xNew;           // change y of the first control point
+    bezCpList[0].x = xNew;           // change x of the first control point
     bezCpList[0].y = yNew;           // change y of the first control point
+    // bezCpList[1].x = xNew;
+    // bezCpList[1].y = yNew;
     bezCps = bezCpSphereList[0];     // update position of the corresponding sphere
+    // bezCps2 = bezCpSphereList[1];
     bezCps.position.set(xNew, yNew, 0);
+    // bezCps2.position.set(xNew, yNew, 0);
+
+    
 
     updatePencil_details();    // update the Bezier curve and pencil geometry based on control points
 
