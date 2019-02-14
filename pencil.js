@@ -5,32 +5,88 @@
 ////////////////////////////////////////////////////////////////////////
 
 function initPencilMotions() {
-    var a0 = 0;
-    var a1 = Math.PI/6;
-    var a2 = Math.PI/3;
-    var a3 = Math.PI/2;
+    var pi = Math.PI;
+    var deg2rad = Math.PI/180;
+    // var a0 = 0;
+    // var a1 = 30*deg2rad;
+    // var a2 = pi/3;
+    // var a3 = pi/2;
 
-    var i0 = Math.sin(a0)*0.42;
-    var j0 = Math.cos(a0)*0.42;
+    CpList = [];
 
-    var i1 = Math.sin(a1)*0.47;
-    var j1 = Math.cos(a1)*0.47;
+    for(var u = 0; u < 16; u+=1){
+        var a = u*30*deg2rad;
+        var i = Math.sin(a)*0.5;
+        var j = Math.cos(a)*0.5;
+        var x = 0.5+i;
+        var z = 0.4+j;
+        CpList.push(new THREE.Vector3(x,0,z));
+    }
 
-    var i2 = Math.sin(a2)*0.47;
-    var j2 = Math.cos(a2)*0.47;
-
-    var i3 = Math.sin(a3)*0.42;
-    var j3 = Math.cos(a3)*0.42;
+    // var i0 = Math.sin(a0)*0.42;
+    // var j0 = Math.cos(a0)*0.42;
+    //
+    // var i1 = Math.sin(a1)*0.47;
+    // var j1 = Math.cos(a1)*0.47;
+    //
+    // var i2 = Math.sin(a2)*0.47;
+    // var j2 = Math.cos(a2)*0.47;
+    //
+    // var i3 = Math.sin(a3)*0.42;
+    // var j3 = Math.cos(a3)*0.42;
       // keyframes for pencil:    name, dt, [bz0x, bz0y, bz0z, bz1x, bz1y, bz1z, bz2x, bz2y, bz2z, bz3x, bz3y, bz3z]
-    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0, [0.5-i0,  0,  0.4+j0,
-                                                                        0.5-i1,  0,  0.4+j1,
-                                                                        0.5-i2, 0, 0.4+j2,
-                                                                        0.5-i3, 0, 0.4+j3]));
+    pencilMotion.addKeyFrame(new Keyframe('keyA', 0.0,
+        [CpList[0].x,  0,  CpList[0].z,
+            CpList[1].x,  0.1,  CpList[1].z,
+            CpList[2].x,  0.1,  CpList[2].z,
+            CpList[3].x,  0,  CpList[3].z]));
     pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0,
-        [0.5-i0,  0,  0.4+j0,
-        0.5-i1,  0,  0.4+j1,
-        0.5-i2, 0, 0.4+j2,
-        0.5-i3, 0, 0.4+j3]));
+        [CpList[1].x,  0.1,  CpList[1].z,
+            CpList[2].x,  0.3,  CpList[2].z,
+            CpList[3].x,  0.3,  CpList[3].z,
+            CpList[4].x,  0,  CpList[4].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyC', 1.0,
+        [CpList[3].x,  0,  CpList[3].z,
+            CpList[4].x,  -0.1,  CpList[4].z,
+            CpList[5].x,  -0.1,  CpList[5].z,
+            CpList[6].x,  0,  CpList[6].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyD', 1.0,
+        [CpList[4].x,  -0.1,  CpList[4].z,
+            CpList[5].x,  -0.3,  CpList[5].z,
+            CpList[6].x,  -0.3,  CpList[6].z,
+            CpList[7].x,  0,  CpList[7].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyE', 1.0,
+        [CpList[6].x,  0,  CpList[6].z,
+            CpList[7].x,  0.1,  CpList[7].z,
+            CpList[8].x,  0.1,  CpList[8].z,
+            CpList[9].x,  0,  CpList[9].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyF', 1.0,
+        [CpList[7].x,  0.1,  CpList[7].z,
+            CpList[8].x,  0.3,  CpList[8].z,
+            CpList[9].x,  0.3,  CpList[9].z,
+            CpList[10].x,  0,  CpList[10].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyG', 1.0,
+        [CpList[9].x,  0,  CpList[9].z,
+            CpList[10].x,  -0.1,  CpList[10].z,
+            CpList[11].x,  -0.1,  CpList[11].z,
+            CpList[12].x,  0,  CpList[12].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyH', 1.0,
+        [CpList[10].x,  -0.1,  CpList[10].z,
+            CpList[11].x,  -0.3,  CpList[11].z,
+            CpList[12].x,  -0.3,  CpList[12].z,
+            CpList[13].x,  0,  CpList[13].z]));
+    pencilMotion.addKeyFrame(new Keyframe('keyI', 1.0,
+        [CpList[12].x,  0,  CpList[12].z,
+            CpList[13].x,  0.1,  CpList[13].z,
+            CpList[14].x,  0.1,  CpList[14].z,
+            CpList[15].x,  0,  CpList[15].z]));
+
+
+    // pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0,
+    //     [0.5-i0,  0,  0.4+j0,
+    //     0.5+i1,  0,  0.4+j1,
+    //     0.5+i2, 0, 0.4+j2,
+    //     0.5+i3, 0, 0.4+j3]));
     // pencilMotion.addKeyFrame(new Keyframe('keyB', 1.0, [0.1,  0,  0.0,
     //                                                                     0.3,  0,  -0.2,
     //                                                                     0.5,  0, -0.2,
@@ -124,9 +180,9 @@ function initPencilObject() {
     var axesHelper = new THREE.AxesHelper( 2 );
     pencil = new THREE.Mesh( geom, pencilMaterial);
     pencil.add(axesHelper);
-    pencil.position.set(-2.5,0.5,0);
+    pencil.position.set(-2.5,0.8,0);
     pencil.scale.x = 5.0;
-    pencil.scale.y = 5.0;
+    pencil.scale.y = 2.0;
     pencil.scale.z = 5.0;
     //pencil.rotation.x = -Math.PI/2;
     //pencil.rotation.y = -Math.PI/2;
@@ -176,7 +232,6 @@ function initPencilObject() {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 function updatePencil(avars) {
-    var deg2rad = Math.PI/180;
     //var theta0 = avars[6]*deg2rad;
     //pencil.position.set(avars[3], avars[4], avars[5]);
 
