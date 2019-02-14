@@ -1,4 +1,4 @@
-//  Luxo
+    //  Luxo
 
 console.log("luxo.js")
 
@@ -88,7 +88,7 @@ function updateLuxo(avars) {
     luxo1.matrix.multiply(new THREE.Matrix4().makeRotationZ(theta1));    
       // Frame 1 has been established
     frame1.copy(luxo1.matrix);
-    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(0,0.5*width,0));   
+    luxo1.matrix.multiply(new THREE.Matrix4().makeTranslation(0,0.5*width,0));
     luxo1.matrix.multiply(new THREE.Matrix4().makeScale(len1,width,depth));    
 
       ////////////// luxo2

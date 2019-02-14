@@ -99,10 +99,15 @@ function initLuxoObjects() {
     // LWall.castShadow = false;
     // LWall.receiveShadow = true;
 
+    coneGeometry = new THREE.CylinderGeometry( 0.0, 0.30, 0.80, 20, 4 );
+    cone = new THREE.Mesh( coneGeometry, diffuseMaterial);
+    cone.position.set(4, 0, 0);
+    scene.add( cone);
+
     // sphere, located at light position
     sphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);    // radius, segments, segments
     sphere = new THREE.Mesh(sphereGeometry, yellowMaterial);
-    sphere.position.set(-5,10,2);
+    sphere.position.set(-5,8,2);
     sphere.position.set(light.position.x, light.position.y, light.position.z);
     scene.add(sphere);
 }
