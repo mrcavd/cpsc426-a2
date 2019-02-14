@@ -44,8 +44,9 @@ function initLuxoMotions() {
 function initLuxo() {
 
     var axesHelper = new THREE.AxesHelper( 5 );
+    var axesHelper1 = new THREE.AxesHelper(4);
 
-    luxolight = new THREE.SpotLight(0xffd700, 6.0, 0.0, Math.PI/4);
+    luxolight = new THREE.SpotLight(0xffd700, 6.0, 32.0, Math.PI/4);
     luxolight.castShadow = true;
     luxolight.add(axesHelper);
     scene.add(luxolight);
@@ -62,8 +63,7 @@ function initLuxo() {
     luxo5 = new THREE.Mesh( coneGeometry, coneMaterial);
     luxo6 = new THREE.Mesh( sphereGeometry, bulbMaterial);
 
-
-    //luxo6.add( axesHelper );
+    luxo6.add( axesHelper1 );
 
     bulbTarget = new THREE.Mesh( sphereGeometry, diffuseMaterial2);
     scene.add(bulbTarget);
@@ -74,6 +74,8 @@ function initLuxo() {
     luxoj2 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj2);
     luxoj3 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj3);
 
+    luxoj1.castShadow = true;    luxoj1.receiveShadow = true;
+    luxoj2.castShadow = true;    luxoj2.receiveShadow = true;
     luxo1.castShadow = true;    luxo1.receiveShadow = false;
     luxo2.castShadow = true;    luxo2.receiveShadow = false;
     luxo3.castShadow = true;    luxo3.receiveShadow = false;
@@ -172,8 +174,8 @@ function updateLuxo(avars) {
     bulbTarget.matrix.multiply(new THREE.Matrix4().makeTranslation(3.2*len4, 0, 0));
     bulbTarget.matrix.multiply(new THREE.Matrix4().makeScale(0.1, 0.1, 0.1));
 
-    position.setFromMatrixPosition(luxo6.matrixWorld);
-    luxolight.position.set(position.x, position.y,  position.z);
+    position.setFromMatrixPosition(luxo6.matrix);
+    luxolight.position.set(position.x, position.y, position.z);
     luxolight.target = bulbTarget;
     //testBulb.matrix.copy(luxo6.matrix);
     //luxolight.target = position;
