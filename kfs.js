@@ -127,7 +127,8 @@ function init(name) {
 	initCameraLuxo();  
         initLuxoMotions();    // Luxo keyframes (luxo.js)
         initLuxo();           // Luxo setup (luxo.js)
-	initLights();         
+	initLights();
+	initSkybox();
 	initLuxoObjects();
 	initPencilObject();   // create pencil (pencil.js)
 	initPencilMotions();  // pencil keyframes (pencil.js)

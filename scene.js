@@ -7,7 +7,7 @@
 var diffuseBlue = new THREE.MeshLambertMaterial( {color: 0xc0c0ff} );
 var diffuseRed = new THREE.MeshLambertMaterial( {color: 0xff4040} );
 var diffuseMaterial = new THREE.MeshLambertMaterial( {color: 0xaf7f3f} );
-var bulbMaterial = new THREE.MeshLambertMaterial( {emissive: 0x4d0057, color: 0x00e1ff} );
+var bulbMaterial = new THREE.MeshLambertMaterial( {emissive: 0xffffff, color: 0xfff44f} );
 var coneMaterial = new THREE.MeshLambertMaterial( {emissive: 0x250018, color: 0xd4c821, side: THREE.DoubleSide});
 var diffuseMaterial2 = new THREE.MeshLambertMaterial( {color: 0xffffff, side: THREE.DoubleSide } );
 var yellowMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
@@ -29,6 +29,78 @@ function initLights() {
     //scene.add(light);
     ambientLight = new THREE.AmbientLight(0xf6fabc, 0.45);
     scene.add(ambientLight);
+}
+
+/////////////////////////////////////
+// Skybox textures
+/////////////////////////////////////
+var textureLoader = new THREE.TextureLoader();
+
+posxTexture = textureLoader.load( "images/posx.jpg" );
+posyTexture = textureLoader.load( "images/posy.jpg" );
+poszTexture = textureLoader.load( "images/posz.jpg" );
+negxTexture = textureLoader.load( "images/negx.jpg" );
+negyTexture = textureLoader.load( "images/negy.jpg" );
+negzTexture = textureLoader.load( "images/negz.jpg" );
+
+minFilter = THREE.NearestFilter;
+magFilter = THREE.LinearFilter;
+
+posxTexture.magFilter = magFilter;
+posxTexture.minFilter = minFilter;
+posyTexture.magFilter = magFilter;
+posyTexture.minFilter = minFilter;
+poszTexture.magFilter = magFilter;
+poszTexture.minFilter = minFilter;
+negxTexture.magFilter = magFilter;
+negxTexture.minFilter = minFilter;
+negyTexture.magFilter = magFilter;
+negyTexture.minFilter = minFilter;
+negzTexture.magFilter = magFilter;
+negzTexture.minFilter = minFilter;
+
+/////////////////////////////////////
+// Skybox add()
+/////////////////////////////////////
+function initSkybox() {
+    var size = 100;
+    wallGeometry = new THREE.PlaneBufferGeometry(2 * size, 2 * size);
+
+    posxMaterial = new THREE.MeshBasicMaterial({map: posxTexture, side: THREE.DoubleSide});
+    posxWall = new THREE.Mesh(wallGeometry, posxMaterial);
+    posxWall.position.x = size;
+    posxWall.rotation.y = -Math.PI / 2;
+    scene.add(posxWall);
+
+    negxMaterial = new THREE.MeshBasicMaterial( {map: negxTexture, side:THREE.DoubleSide });
+    negxWall = new THREE.Mesh(wallGeometry, negxMaterial);
+    negxWall.position.x = -size;
+    negxWall.rotation.y = Math.PI / 2;
+    scene.add(negxWall);
+
+    posyMaterial = new THREE.MeshBasicMaterial( {map: posyTexture, side:THREE.DoubleSide });
+    posyWall = new THREE.Mesh(wallGeometry, posyMaterial);
+    posyWall.position.y = size;
+    posyWall.rotation.x = Math.PI / 2;
+    scene.add(posyWall);
+
+    negyMaterial = new THREE.MeshBasicMaterial( {map: negyTexture, side:THREE.DoubleSide });
+    negyWall = new THREE.Mesh(wallGeometry, negyMaterial);
+    negyWall.position.y = -size;
+    negyWall.rotation.x = -Math.PI / 2;
+    scene.add(negyWall);
+
+    poszMaterial = new THREE.MeshBasicMaterial( {map: poszTexture, side:THREE.DoubleSide });
+    poszWall = new THREE.Mesh(wallGeometry, poszMaterial);
+    poszWall.position.z = size;
+//poszWall.rotation.y = -Math.PI / 2;
+    scene.add(poszWall);
+
+    negzMaterial = new THREE.MeshBasicMaterial( {map: negzTexture, side:THREE.DoubleSide });
+    negzWall = new THREE.Mesh(wallGeometry, negzMaterial);
+    negzWall.position.z = -size;
+    poszWall.rotation.y = Math.PI;
+    scene.add(negzWall);
 }
 
 /////////////////////////////////////	
