@@ -7,6 +7,8 @@
 var diffuseBlue = new THREE.MeshLambertMaterial( {color: 0xc0c0ff} );
 var diffuseRed = new THREE.MeshLambertMaterial( {color: 0xff4040} );
 var diffuseMaterial = new THREE.MeshLambertMaterial( {color: 0xaf7f3f} );
+var bulbMaterial = new THREE.MeshLambertMaterial( {emissive: 0x4d0057, color: 0x00e1ff} );
+var coneMaterial = new THREE.MeshLambertMaterial( {emissive: 0x250018, color: 0xd4c821, side: THREE.DoubleSide});
 var diffuseMaterial2 = new THREE.MeshLambertMaterial( {color: 0xffffff, side: THREE.DoubleSide } );
 var yellowMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 var redMaterial = new THREE.MeshBasicMaterial( {color: 0xff0000} );
@@ -25,7 +27,7 @@ function initLights() {
     light.position.set(5,20,9);
     light.castShadow = true; 
     scene.add(light);
-    ambientLight = new THREE.AmbientLight(0x606060);
+    ambientLight = new THREE.AmbientLight(0xf6fabc, 0.45);
     scene.add(ambientLight);
 }
 
@@ -100,10 +102,10 @@ function initLuxoObjects() {
     // LWall.receiveShadow = true;
 
     // cone:   parameters --  radiusTop, radiusBot, height, radialSegments, heightSegments
-    coneGeometry = new THREE.CylinderGeometry( 0.3, 1.6, 3.0, 20, 4 );
-    cone = new THREE.Mesh( coneGeometry, diffuseMaterial);
-    cone.position.set(4, 0, 0);
-    scene.add( cone);
+        // coneGeometry = new THREE.CylinderGeometry( 0.3, 1.6, 3.0, 20, 4 );
+        // cone = new THREE.Mesh( coneGeometry, diffuseMaterial);
+        // cone.position.set(4, 0, 0);
+        // scene.add( cone);
 
     // sphere, located at light position
     sphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);    // radius, segments, segments

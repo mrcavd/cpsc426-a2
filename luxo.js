@@ -15,19 +15,21 @@ function initLuxoMotions() {
 //    console.log('kf',myboxMotion.currTime,'=',myboxMotion.getAvars());    // interpolate for t=2.9
 
       // keyframes for Luxo:    name, dt, [x, y, theta1, theta2, theta3, theta4]
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.0, [-5, 0,   0, -45, 25, 0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [-5.5, 0,   0, -10, 45, 40]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-5  , 0,   0, -20, 25, 0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-3, 3,   -40, -30, 90,90]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [0, 1.3,   5, -20, 45,0]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.4, [0, 1.0,   0, -20, 45,30]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [0, 1.0,   0, -100, 200,90]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [0, 1.0,   0, -150, 280,120]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [0.5, 1.1,   8, -150, 280,120]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-3, 8.0,   180, -130, 300, 150]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [-7, 1.0,   350, -130, 320, 170]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [-7, 0,   360, -130, 320, 200]));
-    luxoMotion.addKeyFrame(new Keyframe('straight',         0.5, [-7, 0,   360, -130, 320, 170]));
+    luxoMotion.addKeyFrame(new Keyframe('init',         0.0, [-6, 0,   0, -45, 25, 95]));
+    luxoMotion.addKeyFrame(new Keyframe('setup',         0.3, [-5.1, 0,   0, -10, 45, 60]));
+    luxoMotion.addKeyFrame(new Keyframe('ready',         0.5, [-5  , 0.2,   0, -20, 25, 70]));
+    luxoMotion.addKeyFrame(new Keyframe('jump_0',         1.0, [-3, 3,   -40, -30, 90, 90]));
+    luxoMotion.addKeyFrame(new Keyframe('jump_1',         1.0, [0, 1.3,   5, -20, 45, 45]));
+    luxoMotion.addKeyFrame(new Keyframe('landed',         0.4, [0, 1.0,   0, -20, 45,30]));
+    luxoMotion.addKeyFrame(new Keyframe('reverse_0',         1.0, [0, 1.0,   0, -100, 200,90]));
+    luxoMotion.addKeyFrame(new Keyframe('reverse_1',         0.5, [0, 1.0,   0, -150, 280,120]));
+    luxoMotion.addKeyFrame(new Keyframe('ready',         0.3, [0, 1.0,   0, -150, 280,120]));
+    luxoMotion.addKeyFrame(new Keyframe('jump_0',         0.5, [-3, 8.0,   180, -130, 300, 150]));
+    luxoMotion.addKeyFrame(new Keyframe('jump_1',         1.0, [-4, 1.0,   350, -130, 320, 100]));
+    luxoMotion.addKeyFrame(new Keyframe('landing',         0.3, [-5, 0.6,   340, -130, 320, 95]));
+    luxoMotion.addKeyFrame(new Keyframe('landed',         0.5, [-6, 0,   360, -130, 320, 85]));
+    luxoMotion.addKeyFrame(new Keyframe('reset_0',         1.2, [-6, 0,   360, -40, 25, 95]));
+
     // luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [10, 8,   100, -85, 125, 20]));
     // luxoMotion.addKeyFrame(new Keyframe('straight',         1.0, [1, 8,   100, -85, 125, 20]));
 
@@ -39,15 +41,18 @@ function initLuxoMotions() {
 
 function initLuxo() {
     boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );    // width, height, depth
-    coneGeometry = new THREE.CylinderGeometry( 0.3, 1.0, 1.6, 20, 4 );
+    coneGeometry = new THREE.ConeGeometry( 1,2,32,5,true );
+    sphereGeometry = new THREE.SphereGeometry(0.4, 32, 32);
     jointGeometry = new THREE.CylinderGeometry( 0.30, 0.30, 1.1, 20, 4 );
 
     luxo1 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo1 );
     luxo2 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo2 );
     luxo3 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo3 );
     luxo4 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo4 );
-    luxo5 = new THREE.Mesh( coneGeometry, diffuseMaterial2);
+    luxo5 = new THREE.Mesh( coneGeometry, coneMaterial);
+    luxo6 = new THREE.Mesh( sphereGeometry, bulbMaterial);
     scene.add(luxo5);
+    scene.add(luxo6);
     luxoj1 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj1);
     luxoj2 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj2);
     luxoj3 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj3);
@@ -57,15 +62,18 @@ function initLuxo() {
     luxo3.castShadow = true;    luxo3.receiveShadow = false;
     luxo4.castShadow = true;    luxo4.receiveShadow = false;
     luxo5.castShadow = true;    luxo5.receiveShadow = false;
+    luxo6.castShadow = false;   luxo6.receiveShadow = false;
 
     luxo1.matrixAutoUpdate = false;  
     luxo2.matrixAutoUpdate = false;  
     luxo3.matrixAutoUpdate = false;  
     luxo4.matrixAutoUpdate = false;
     luxo5.matrixAutoUpdate = false;
+    luxo6.matrixAutoUpdate = false;
     luxoj1.matrixAutoUpdate = false;  
     luxoj2.matrixAutoUpdate = false;  
-    luxoj3.matrixAutoUpdate = false;  
+    luxoj3.matrixAutoUpdate = false;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -135,10 +143,14 @@ function updateLuxo(avars) {
     luxo5.matrix.copy(frame4);
     luxo5.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 1.2*-len4, 0));
 
+    luxo6.matrix.copy(frame4);
+    luxo6.matrix.multiply(new THREE.Matrix4().makeTranslation(0, -1.2*len4, 0));
+
     luxo1.updateMatrixWorld();
     luxo2.updateMatrixWorld();
     luxo3.updateMatrixWorld();
     luxo4.updateMatrixWorld();
     luxo5.updateMatrixWorld();
+    luxo6.updateMatrixWorld();
 }
 
