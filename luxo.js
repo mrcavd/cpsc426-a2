@@ -55,11 +55,11 @@ function initLuxo() {
     sphereGeometry = new THREE.SphereGeometry(0.4, 32, 32);
     jointGeometry = new THREE.CylinderGeometry( 0.30, 0.30, 1.1, 20, 4 );
 
-    luxo1 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo1 );
+    luxo1 = new THREE.Mesh( boxGeometry, bottomMaterial );   scene.add( luxo1 );
     luxo2 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo2 );
     luxo3 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo3 );
-    luxo4 = new THREE.Mesh( boxGeometry, diffuseMaterial );   scene.add( luxo4 );
-    luxo5 = new THREE.Mesh( coneGeometry, coneMaterial);
+    luxo4 = new THREE.Mesh( boxGeometry, diffuseMaterial);   scene.add( luxo4 );
+    luxo5 = new THREE.Mesh( coneGeometry, diffuseMaterial);
     luxo6 = new THREE.Mesh( sphereGeometry, bulbMaterial);
 
     luxo6.add( axesHelper1 );
@@ -69,7 +69,7 @@ function initLuxo() {
 
     scene.add(luxo5);
     scene.add(luxo6);
-    luxoj1 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj1);
+    luxoj1 = new THREE.Mesh( jointGeometry, tieMaterial);  scene.add(luxoj1);
     luxoj2 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj2);
     luxoj3 = new THREE.Mesh( jointGeometry, diffuseRed);  scene.add(luxoj3);
 
