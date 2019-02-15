@@ -179,17 +179,34 @@ function initPencilObject() {
     // change pencil position and scale pencil here
     var axesHelper = new THREE.AxesHelper( 2 );
     pencil = new THREE.Mesh( geom, pencilMaterial);
+    pencil_1 = new THREE.Mesh( geom, pencilMaterial);
+    pencil_2 = new THREE.Mesh( geom, pencilMaterial);
     pencil.add(axesHelper);
+
     pencil.position.set(-2.5,0.8,0);
     pencil.scale.x = 5.0;
     pencil.scale.y = 2.0;
     pencil.scale.z = 5.0;
+
+    pencil_1.position.set(4.5, 1.4, 0);
+    pencil_1.rotation.z = Math.PI;
+    pencil_1.scale.x = 8.0;
+    pencil_1.scale.y = 2.0;
+    pencil_1.scale.z = 8.0;
+
+    pencil_2.position.set(-4.5, 1.2, -2.2);
+    pencil_2.scale.x = 12.0;
+    pencil_2.scale.y = 2.0;
+    pencil_2.scale.z = 12.0;
     //pencil.rotation.x = -Math.PI/2;
     //pencil.rotation.y = -Math.PI/2;
 
     pencil.castShadow = true;    pencil.receiveShadow = false;
+    pencil_1.castShadow = true;    pencil_1.receiveShadow = false;
+    pencil_2.castShadow = true;    pencil_2.receiveShadow = false;
     scene.add(pencil);
-
+    scene.add(pencil_1);
+    scene.add(pencil_2);
       // Bezier curve
 
       // Bezier control points
