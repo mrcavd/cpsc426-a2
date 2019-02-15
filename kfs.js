@@ -131,7 +131,7 @@ function init(name) {
 	initSkybox();
 	initLuxoObjects();
 	initPencilObject();   // create pencil (pencil.js)
-	initPencilMotions();  // pencil keyframes (pencil.js)
+    initPencilMotions();  // pencil keyframes (pencil.js)
 	renderer.shadowMapEnabled = true;
 	break;
     case "Warp":

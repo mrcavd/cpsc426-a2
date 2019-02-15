@@ -15,7 +15,7 @@ function initLuxoMotions() {
 //    console.log('kf',myboxMotion.currTime,'=',myboxMotion.getAvars());    // interpolate for t=2.9
 
       // keyframes for Luxo:    name, dt, [x, y, theta1, theta2, theta3, theta4]
-    luxoMotion.addKeyFrame(new Keyframe('init',         0.0, [-6, 0,   0, -45, 25, 95]));
+    luxoMotion.addKeyFrame(new Keyframe('init',         0.0, [-5, 0,   0, -45, 25, 95]));
     luxoMotion.addKeyFrame(new Keyframe('setup',         0.3, [-5.1, 0,   0, -5, 45, 60]));
     luxoMotion.addKeyFrame(new Keyframe('ready',         0.5, [-5  , 0.2,   0, -20, 25, 70]));
     luxoMotion.addKeyFrame(new Keyframe('jump_0',         1.0, [-3, 3,   -40, -30, 90, 90]));
@@ -23,12 +23,12 @@ function initLuxoMotions() {
     luxoMotion.addKeyFrame(new Keyframe('landed',         0.4, [0, 1.0,   0, -20, 45,30]));
     luxoMotion.addKeyFrame(new Keyframe('reverse_0',         1.0, [0, 1.0,   0, -100, 200,90]));
     luxoMotion.addKeyFrame(new Keyframe('reverse_1',         0.5, [0, 1.0,   0, -150, 280,120]));
-    luxoMotion.addKeyFrame(new Keyframe('ready',         0.3, [0, 1.0,   0, -150, 280,120]));
+    luxoMotion.addKeyFrame(new Keyframe('ready',         0.3, [0, 1.5,   5, -150, 280,120]));
     luxoMotion.addKeyFrame(new Keyframe('jump_0',         0.5, [-3, 8.0,   180, -130, 300, 150]));
     luxoMotion.addKeyFrame(new Keyframe('jump_1',         1.0, [-4, 1.0,   350, -130, 320, 100]));
-    luxoMotion.addKeyFrame(new Keyframe('landing',         0.3, [-5, 0.6,   340, -130, 320, 95]));
-    luxoMotion.addKeyFrame(new Keyframe('landed',         0.5, [-6, 0,   360, -130, 320, 85]));
-    luxoMotion.addKeyFrame(new Keyframe('reset_0',         1.2, [-6, 0,   360, -40, 25, 95]));
+    // luxoMotion.addKeyFrame(new Keyframe('landing',         0.3, [-5, 0.6,   340, -130, 320, 95]));
+    luxoMotion.addKeyFrame(new Keyframe('landed',         0.5, [-5, 0,   360, -130, 320, 85]));
+    luxoMotion.addKeyFrame(new Keyframe('reset_0',         1.2, [-5, 0,   360, -40, 25, 95]));
 
     // Discarded Frame
     // luxoMotion.addKeyFrame(new Keyframe('straight',         0.3, [10, 8,   100, -85, 125, 20]));
@@ -42,12 +42,12 @@ function initLuxoMotions() {
 
 function initLuxo() {
 
-    var axesHelper = new THREE.AxesHelper( 5 );
-    var axesHelper1 = new THREE.AxesHelper(3);
+    // var axesHelper = new THREE.AxesHelper( 5 );
+    // var axesHelper1 = new THREE.AxesHelper(3);
 
-    luxolight = new THREE.PointLight(0xffd700);
+    luxolight = new THREE.PointLight(0xffffff);
     luxolight.castShadow = true;
-    luxolight.add(axesHelper);
+    // luxolight.add(axesHelper);
     scene.add(luxolight);
 
     boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );    // width, height, depth
@@ -62,7 +62,7 @@ function initLuxo() {
     luxo5 = new THREE.Mesh( coneGeometry, diffuseMaterial);
     luxo6 = new THREE.Mesh( sphereGeometry, bulbMaterial);
 
-    luxo6.add( axesHelper1 );
+    // luxo6.add( axesHelper1 );
 
     // bulbTarget = new THREE.Mesh( sphereGeometry, diffuseMaterial2);
     // scene.add(bulbTarget);

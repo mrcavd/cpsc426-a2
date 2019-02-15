@@ -181,7 +181,7 @@ function initPencilObject() {
     pencil = new THREE.Mesh( geom, pencilMaterial);
     pencil_1 = new THREE.Mesh( geom, pencilMaterial);
     pencil_2 = new THREE.Mesh( geom, pencilMaterial);
-    pencil.add(axesHelper);
+    // pencil.add(axesHelper);
 
     pencil.position.set(-2.5,0.8,0);
     pencil.scale.x = 5.0;

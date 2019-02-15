@@ -7,9 +7,11 @@
 var diffuseBlue = new THREE.MeshLambertMaterial( {color: 0xc0c0ff} );
 var diffuseRed = new THREE.MeshLambertMaterial( {color: 0xAEAD0D} );
 var spongeTexture = new THREE.TextureLoader().load('images/sponge.jpg');    //load sponge texture
-var diffuseMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF56C, map:spongeTexture} ); // luxo body material
+var diffuseMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF56C, map:spongeTexture, side: THREE.DoubleSide} ); // luxo body meterial
 var pineappleTexture = new THREE.TextureLoader().load('images/pineapple.jpg');    //load pineapple texture
 var pineappleMaterial = new THREE.MeshLambertMaterial( {color: 0xFFF56C, map:pineappleTexture} ); // luxo body material
+var rockTexture = new THREE.TextureLoader().load('images/rock.jpg');    //load rock texture
+var rockMaterial = new THREE.MeshLambertMaterial( { map:rockTexture, side: THREE.DoubleSide} ); // luxo body meterial
 var bottomMaterial = new THREE.MeshLambertMaterial( {color: 0x704427});
 var bulbMaterial = new THREE.MeshLambertMaterial( {emissive: 0xffffff, color: 0xfff44f} );
 var coneMaterial = new THREE.MeshLambertMaterial( {emissive: 0x250018, color: 0xFFF56C, side: THREE.DoubleSide});
@@ -21,6 +23,7 @@ var blueMaterial = new THREE.MeshBasicMaterial( {color: 0x0000f0} );
 var whiteMaterial = new THREE.MeshBasicMaterial( {color: 0xFAF8EC} );
 var tieMaterial = new THREE.MeshBasicMaterial( {color: 0xC62F24} );
 var armadilloMaterial = new THREE.MeshBasicMaterial( {color: 0x7fff7f} );
+
 
 
 console.log("scene.js")
@@ -128,13 +131,14 @@ function initLuxoObjects() {
     var mccGeometry = new THREE.BoxGeometry( 1.5, 1.5, 1.5, 1, 1, 1 );
     mcc = new THREE.Mesh( mccGeometry, cubeMaterialArray );
     mcc.position.set(10,0.75,2);
-    scene.add( mcc );	
+    // scene.add( mcc );	
 
     // half sphere
-    hsphereGeo = new THREE.SphereBufferGeometry(500,16,16, Math.PI/2, Math.PI*2, 0, Math.PI);
-    hsphere = new THREE.Mesh(hsphereGeo, pineappleMaterial);
-    hsphere.position.set(0,0,3);
+    hsphereGeo = new THREE.SphereGeometry(4,16,16, Math.PI/2, Math.PI*2, 0, Math.PI * 0.5);
+    hsphere = new THREE.Mesh(hsphereGeo, rockMaterial);
+    hsphere.position.set(0,0,-9);
     scene.add(hsphere);
+    
     // cylinder
     // parameters:  radiusAtTop, radiusAtBottom, height, radialSegments, heightSegments
     cylinderGeometry = new THREE.CylinderGeometry( 2, 2, 1, 32, 4 );
